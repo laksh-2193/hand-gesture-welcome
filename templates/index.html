@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome || Atria University</title>
+</head>
+<style>
+  html {
+  background: url('static/background.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.topright {
+position: absolute;
+height: 350px;
+width: 450px;
+
+}
+.canvas{
+ float: right;
+
+ margin-right: 30px;
+
+
+}
+</style>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<body>
+  <img src="static/welcometext.png" style="position: relative; height: 50%; width: 50%; margin-left:20px;"/>
+  <lottie-player id="animation" src="https://assets6.lottiefiles.com/packages/lf20_1pxqjqps.json" background="transparent" speed="1"
+    style="width: 300px; height: 300px;position: relative;margin-top: 100px;" loop autoplay></lottie-player>
+  <div class="canvas" id="canvas">
+    <img src="{{ url_for('video_feed') }}" height="400px" width="550px" />
+    <div style="background-color:#F89736; width:550px; margin-top: 0px;" id="divbg">
+    <marquee> <h1 style="color:#000;" id="welcomemessage">
+        Please react with Thumbs Up to start.
+
+        </h1></marquee>
+    </div>
+
+  </div>
+
+
+
+</body>
+</html>
+<script>
+
+  window.setInterval('refresh()', 100);
+  function refresh() {
+    let url = 'https://welcometoatriauniversity-default-rtdb.firebaseio.com/index/welcome.json';
+    fetch(url)
+      .then(res => res.json())
+      .then((out) => {
+        if (out == '1') {
+
+          document.getElementById("welcomemessage").innerHTML = "Welcome to Atria University";
+          document.getElementById("welcomemessage").style.color = "#160C40";
+          document.getElementById("divbg").style.backgroundColor = "#fff";
+            document.getElementById("animation").style.display = "block";
+            document.getElementById("canvas").style.marginTop = "-450px";
+
+        }
+        else {
+         document.getElementById("welcomemessage").innerHTML = " Please react with Thumbs Up to start.";
+          document.getElementById("welcomemessage").style.color = "#fff";
+          document.getElementById("divbg").style.backgroundColor = "#07CB3F";
+          document.getElementById("animation").style.display = "none";
+          document.getElementById("canvas").style.marginTop="50px";
+
+        }
+      })
+      .catch(err => { throw err });
+  }
+</script>
