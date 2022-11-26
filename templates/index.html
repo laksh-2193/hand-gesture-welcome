@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Cutive' rel='stylesheet'>
   <title>Welcome || Atria University</title>
 </head>
 <style>
   html {
-  background: url('static/background.png') no-repeat center center fixed;
+  background: url('background.png') no-repeat;
+  font-family: 'Cutive';
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -23,57 +25,51 @@ width: 450px;
 .canvas{
  float: right;
 
- margin-right: 30px;
+ margin-right: 20px;
 
 
+}
+h1{
+  font-size: 33px;
 }
 </style>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <body>
-  <img src="static/welcometext.png" style="position: relative; height: 50%; width: 50%; margin-left:20px;"/>
-  <lottie-player id="animation" src="https://assets6.lottiefiles.com/packages/lf20_1pxqjqps.json" background="transparent" speed="1"
-    style="width: 300px; height: 300px;position: relative;margin-top: 100px;" loop autoplay></lottie-player>
-  <div class="canvas" id="canvas">
-    <img src="{{ url_for('video_feed') }}" height="400px" width="550px" />
-    <div style="background-color:#F89736; width:550px; margin-top: 0px;" id="divbg">
-    <marquee> <h1 style="color:#000;" id="welcomemessage">
-        Please react with Thumbs Up to start.
+  <img src="welcometext.png" style="position: relative; height: 50%; width: 50%; margin-left:20px; visibility: hidden;"/>
 
-        </h1></marquee>
-    </div>
+  <div class="canvas" id="canvas">
+    <img src="{{ url_for('video_feed') }}" height="500px" width="600px" style="position: absolute; top:0;right:0;" />
 
   </div>
 
+  <div style="background-color:#000; margin-top: 230px; padding-left: 26px; position: absolute; bottom: 0; left: 0;" id="divbg">
+    <div style="color:rgb(115, 255, 84); padding: 1px;" id="welcomemessage">
 
+
+    </div>
+  </div>
 
 </body>
 </html>
 <script>
+   window.setInterval('refresh()', 100);
+    function refresh() {
+      let url = 'https://welcometoatriauniversity-default-rtdb.firebaseio.com/index/welcome.json';
+      fetch(url)
+        .then(res => res.json())
+        .then((out) => {
+          if (out == '1') {
 
-  window.setInterval('refresh()', 100);
-  function refresh() {
-    let url = 'https://welcometoatriauniversity-default-rtdb.firebaseio.com/index/welcome.json';
-    fetch(url)
-      .then(res => res.json())
-      .then((out) => {
-        if (out == '1') {
+            document.getElementById("welcomemessage").innerHTML = "<h1>Command Accepted - AU Campus is now OPEN</h1>";
 
-          document.getElementById("welcomemessage").innerHTML = "Welcome to Atria University";
-          document.getElementById("welcomemessage").style.color = "#160C40";
-          document.getElementById("divbg").style.backgroundColor = "#fff";
-            document.getElementById("animation").style.display = "block";
-            document.getElementById("canvas").style.marginTop = "-450px";
+          }
+          else {
+            document.getElementById("welcomemessage").innerHTML = "<h1>Give a Thumbs Up to declare AU Campus OPEN</h1><h2 style='color:red'>Waiting for your command... </h2>";
 
-        }
-        else {
-         document.getElementById("welcomemessage").innerHTML = " Please react with Thumbs Up to start.";
-          document.getElementById("welcomemessage").style.color = "#fff";
-          document.getElementById("divbg").style.backgroundColor = "#07CB3F";
-          document.getElementById("animation").style.display = "none";
-          document.getElementById("canvas").style.marginTop="50px";
+          }
+        })
+        .catch(err => { throw err });
+    }
 
-        }
-      })
-      .catch(err => { throw err });
-  }
+
 </script>
