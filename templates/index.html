@@ -9,7 +9,7 @@
 </head>
 <style>
   html {
-  background: url('background.png') no-repeat;
+  background: url('static/background.png') no-repeat;
   font-family: 'Cutive';
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -35,14 +35,14 @@ h1{
 </style>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <body>
-  <img src="welcometext.png" style="position: relative; height: 50%; width: 50%; margin-left:20px; visibility: hidden;"/>
+  <img src="static/welcometext.png" style="position: relative; height: 50%; width: 50%; margin-left:20px; visibility: hidden;"/>
 
   <div class="canvas" id="canvas">
     <img src="{{ url_for('video_feed') }}" height="500px" width="600px" style="position: absolute; top:0;right:0;" />
 
   </div>
 
-  <div style="background-color:#000; margin-top: 230px; padding-left: 26px; position: absolute; bottom: 0; left: 0;" id="divbg">
+  <div style="background-color:#000; margin-top: 230px; padding-left: 26px; position: absolute; bottom: 0; left: 0; height: 200px;" id="divbg">
     <div style="color:rgb(115, 255, 84); padding: 1px;" id="welcomemessage">
 
 
