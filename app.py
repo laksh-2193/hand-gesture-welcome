@@ -21,6 +21,7 @@ gestureRecognized = ""
 
 @app.route('/')
 def index():
+    ref.child("welcome").set("0")
     return render_template('index.html',gestureRecognized=gestureRecognized)
 
 @app.route('/video_feed')
